@@ -43,7 +43,6 @@ const path = require('path')
 let pluginName
 switch (process.platform) {
 	case 'win32':
-		imageName = 'windows_icon';
 		switch (process.arch) {
 			case 'ia32':
 				pluginName = 'flash/windows/32/pepflashplayer.dll'
@@ -57,7 +56,6 @@ switch (process.platform) {
 			}
 		break
 	case 'linux':
-		imageName = 'linux_icon';
 		switch (process.arch) {
 			case 'ia32':
 				pluginName = 'flash/linux/32/libpepflashplayer.so'
@@ -71,7 +69,6 @@ switch (process.platform) {
 			}
 		break
 	case 'darwin':
-		imageName = 'mac_os_icon';
 		pluginName = 'flash/mac/PepperFlashPlayer.plugin'
 		break
 }
@@ -112,7 +109,7 @@ function createWindow() {
 		  loading.hide()
 		  loading.close()
 		})
-		win.loadURL('https://play.coastalfreeze.net/client/');
+		win.loadURL('https://play.snowyfields.ca/');
 	})
 	
     autoUpdater.checkForUpdatesAndNotify();
