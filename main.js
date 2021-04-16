@@ -1,20 +1,6 @@
 /* 
 
-    Coastal Freeze's Downloadable Client
-    Copyright (C) 2021 Allinol<coastalfreeze.net>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    Credits to Allinol for teaching me a lot of things.
 	
 */
 
@@ -26,9 +12,9 @@ const {
     BrowserWindow,
     Menu,
     MenuItem,
-    ipcMain,
     nativeTheme, 
-	globalShortcut
+	globalShortcut,
+    shell
 } = require('electron')
 
 const DiscordRPC = require('discord-rpc');
@@ -85,32 +71,16 @@ app.on('ready', () => {
 function createWindow() {
     win = new BrowserWindow
     ({
-    title: "Coastal Freeze",
-    webPreferences: {
-        plugins: true,
-        nodeIntegration: true
-    },
-	show: false
+        title: "Snowy Fields",
+        webPreferences: {
+            plugins: true,
+            nodeIntegration: true
+        }
     });
     makeMenu();
-    ipcMain.on('load:data', (event, mute, theme) => {
-        muted = (mute == 'true');
-        nativeTheme.themeSource = theme;
-        win.webContents.audioMuted = muted;
-    });
-    activateRPC();
+    //activateRPC();
 	
-    let loading = new BrowserWindow({show: false, frame: false})
-
-    loading.once('show', () => {
-		win.webContents.once('dom-ready', () => {
-		  console.log('main loaded')
-		  win.show()
-		  loading.hide()
-		  loading.close()
-		})
-		win.loadURL('https://play.snowyfields.ca/');
-	})
+    win.loadURL('https://snowyfields.ca/');
 	
     autoUpdater.checkForUpdatesAndNotify();
     Menu.setApplicationMenu(fsmenu);
@@ -119,9 +89,6 @@ function createWindow() {
 		win.webContents.openDevTools();
 	})
 	
-    loading.loadURL('loading.html')
-    loading.show()
-	
     win.on('closed', () => {
     	win = null;
     });
@@ -129,9 +96,8 @@ function createWindow() {
 
 // start of menubar part
 
-const aboutMessage = `Coastal Freeze Client v${app.getVersion()}
-Created by Allinol and Random for use with Coastal Freeze.
-Owners of Coastal Freeze: Fliberjig1 and Snickerdoodle`;
+const aboutMessage = `Snowy Fields Client v${app.getVersion()}
+Created by Random (with much help and code from Allinol) for use with Snowy Fields.`;
 
 function activateRPC() { 
   const clientId = '792072685790167070'; 
@@ -140,7 +106,7 @@ function activateRPC() {
   const startTimestamp = new Date();
   rpc.on('ready', () => {
     rpc.setActivity({
-      details: `coastalfreeze.net`, 
+      details: `snowyfields.ca`, 
       state: `Desktop Client`, 
       startTimestamp, 
       largeImageKey: imageName
@@ -153,14 +119,14 @@ function makeMenu() {
     fsmenu = new Menu();
     if (process.platform == 'darwin') {
         fsmenu.append(new MenuItem({
-            label: "Coastal Freeze Client",
+            label: "Snowy Fields Client",
             submenu: [{
                     label: 'About',
                     click: () => {
                         dialog.showMessageBox({
                             type: "info",
                             buttons: ["Ok"],
-                            title: "About Coastal Freeze",
+                            title: "About Snowy Fields",
                             message: aboutMessage
                         });
                     }
@@ -170,7 +136,6 @@ function makeMenu() {
                     accelerator: 'CmdOrCtrl+F',
                     click: () => {
                         win.setFullScreen(!win.isFullScreen());
-                        win.webContents.send('fullscreen', win.isFullScreen());
                     }
                 },
                 {
@@ -178,20 +143,19 @@ function makeMenu() {
 					accelerator: 'CmdOrCtrl+M',
                     click: () => {
                         win.webContents.audioMuted = !win.webContents.audioMuted;
-                        win.webContents.send('muted', win.webContents.audioMuted);
                     }
                 },
                 {
-                    label: 'Dark Mode (Toggle)',
-                    click: () => {
-                        darkMode()
+                    label: 'Join Discord',
+            		click: () => {
+                		shell.openExternal("https://discord.gg/VRCFRRC");
                     }
                 },
                 {
                     label: 'Log Out',
                     click: () => {
                         clearCache();
-                        win.loadURL('https://play.coastalfreeze.net/client/');
+                        win.loadURL('https://snowyfields.ca/');
                     }
                 }
             ]
@@ -203,7 +167,7 @@ function makeMenu() {
                 dialog.showMessageBox({
                     type: "info",
                     buttons: ["Ok"],
-                    title: "About Coastal Freeze",
+                    title: "About Snowy Fields",
                     message: aboutMessage
                 });
             }
@@ -233,7 +197,7 @@ function makeMenu() {
             label: 'Log Out',
             click: () => {
                 clearCache();
-                win.loadURL('https://play.coastalfreeze.net/client/');
+                win.loadURL('https://play.snowyfields.ca/');
             }
         }));
     }
@@ -243,16 +207,6 @@ function clearCache() {
     windows = BrowserWindow.getAllWindows()[0];
     const ses = win.webContents.session;
     ses.clearCache(() => {});
-}
-
-function darkMode() {
-    if (nativeTheme.shouldUseDarkColors) {
-        nativeTheme.themeSource = 'light'
-    } else {
-        nativeTheme.themeSource = 'dark'
-    }
-    win.webContents.send('theme', nativeTheme.themeSource);
-    return nativeTheme.shouldUseDarkColors
 }
 
 
