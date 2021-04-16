@@ -7,7 +7,7 @@
 	"scripts": {
 		"start": "electron ."
 	},
-	"repository": "https://github.com/random-sb/snowyfields-client",
+	"repository": "https://github.com/random-sb/Coastal-Freeze",
 	"keywords": [
 		"club penguin",
 		"anvura",
@@ -25,22 +25,7 @@
 		"mac": {
 			"asar": false,
 			"target": "dmg",
-			"category": "public.app-category.games",
-			"files": [
-				"**/*",
-				"!**/flash/{windows, linux}",
-				"!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-				"!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-				"!**/node_modules/*.d.ts",
-				"!**/node_modules/.bin",
-				"!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-				"!.editorconfig",
-				"!**/._*",
-				"!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes,.github}",
-				"!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-				"!**/{appveyor.yml,.travis.yml,circle.yml}",
-				"!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
-			]
+			"category": "public.app-category.games"
 		},
 		"dmg": {
 			"background": "background/macos_bg.png",
@@ -72,21 +57,6 @@
 						"x64"
 					]
 				}
-			],
-			"files": [
-				"**/*",
-				"!**/flash/{windows, mac}",
-				"!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-				"!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-				"!**/node_modules/*.d.ts",
-				"!**/node_modules/.bin",
-				"!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-				"!.editorconfig",
-				"!**/._*",
-				"!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes,.github,background}",
-				"!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-				"!**/{appveyor.yml,.travis.yml,circle.yml}",
-				"!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
 			]
 		},
 		"win": {
@@ -99,21 +69,6 @@
 						"ia32"
 					]
 				}
-			],
-			"files": [
-				"**/*",
-				"!**/flash/{linux,mac}",
-				"!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-				"!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-				"!**/node_modules/*.d.ts",
-				"!**/node_modules/.bin",
-				"!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-				"!.editorconfig",
-				"!**/._*",
-				"!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes,.github,background,icons}",
-				"!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-				"!**/{appveyor.yml,.travis.yml,circle.yml}",
-				"!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
 			]
 		}
 	},
